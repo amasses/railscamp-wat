@@ -1,35 +1,90 @@
-<html>
-<head>
-<title>Rails Camp</title>
-<link rel="stylesheet" href="/assets/normalize.css" />
-<link rel="stylesheet" href="/assets/application.css" />
-</head>
-<body>
-<h1>Welcome to Rails Camp Canberra!</h1>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Rails Camp</title>
+    <link rel="stylesheet" href="assets/css/normalize.css" />
+    <link rel="stylesheet" href="assets/css/skeleton.css" />
+    <script src="assets/jquery-2.1.4.js"></script>
+    <script type="text/javascript">
+    var loadTweets = function() {
+      jQuery.ajax({url: 'http://twetter/status/feed', jsonp: 'callback', dataType: 'jsonp', success: function(data) {
+        displayTweets(data);
+      }});
+    };
 
-<p>Wifi Password: railscamp<p>
+    var displayTweets = function(data) {
+        jQuery("#tweets").empty();
+        jQuery(data).each(function() {
+          var el = jQuery("<li><strong>" + this.user.screen_name + "</strong>: " + this.text + "</li>");
+          jQuery("#tweets").append(el);
+        });
+      };
 
-<p>We don't have all the Internet at Railscamp, please be gentle. Here are some useful things already this side of the pipes:</p>
-<h2>Rubygems & Bundler</h2>
-<p>There's a complete mirror of Rubygems available with instructions for <code>gem</code> and <code>bundle</code> at:</p>
-<p><a href="http://rubygems">http://rubygems</a></p>
-<p><em>Caveat: the rubygems website search isn't working yet.</em></p>
-<h2>Rbenv & Ruby Build</h2>
-<p>Experimenting with new rubies? Install them with ruby-build, which is also the rbenv install command, and use our local cache by setting an environment variable:</p>
-<pre>RUBY_BUILD_MIRROR_URL=http://railscamp/mirror/ruby-build/ rbenv install 2.1.2</pre>
-<p>Or you can <a href="/mirror/ruby">download them directly</a>.</p>
-<h2>Twetter</h2>
-<p>Railscamp tradition demands a Twitter clone:</p>
-<p><a href="http://twetter/">http://twetter</a></p>
-<h2>Mirrored Documentation</h2>
-<ul>
-  <li><a href="http://docs/react">React</a>, <a href="http://docs/flux/docs/overview.html">Flux</a> and <a href="http://docs/flummox">Flummox</a></li>
-  <li><a href="http://webpack.docs">Webpack</a></li>
-  <li><a href="http://docs/phoenix">Phoenix</a></li>
-</ul>
-<h2>Other useful stuff</h2>
-<p><a href="/mirror/ruby">Ruby</a>, <a href="/mirror/apple">OS X Command Line Tools</a>, and <a href="/mirror">potentially more things</a> are also available.</p>
-<hr />
-<p>Want to make this prettier? Talk to Matthew Savage (@amasses).</p>
+    jQuery(function() {
+      setTimeout(loadTweets, 30000);
+      loadTweets();
+    });
+    </script>
+  </head>
+  <body>
+    <div class='section hero'>
+      <div class='container'>
+        <h1>Welcome to Rails Camp Canberra!</h1>
+        <p><strong>Wifi Name: </strong> RailsCamp <em>or</em> RailsCamp18 &mdash; <strong>Wifi Password:</strong> railscamp</p>
+      </div>
+    </div>
+    <div class='section'>
+      <div class='container'>
+        <p>We don't have all the Internet at Railscamp, please be gentle. Here are some useful things already this side of the pipes:</p>
+        <div class='row'>
+          <div class='six columns'>
+            <h2>Rubygems &amp; Bundler</h2>
+            <p>There's a complete mirror of Rubygems available with instructions for <code>gem</code> and <code>bundle</code> at:</p>
+            <p><a href="http://rubygems">http://rubygems</a></p>
+            <p><em>Caveat: the rubygems website search isn't working yet.</em></p>
+          </div>
+          <div class='six columns'>
+            <h2>Rbenv &amp; Ruby Build</h2>
+            <p>Experimenting with new rubies? Install them with ruby-build, which is also the rbenv install command, and use our local cache by setting an environment variable:</p>
+          <pre>RUBY_BUILD_MIRROR_URL=http://railscamp/mirror/ruby-build/ rbenv install 2.1.2</pre>
+          <p>Or you can <a href="/mirror/ruby">download them directly</a>.</p>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='six columns'>
+          <h2>Twetter</h2>
+          <p>Railscamp tradition demands a Twitter clone:</p>
+          <p><a href="http://twetter/">http://twetter</a></p>
+        </div>
+        <div class="six columns">
+          <h2>Mirrored Documentation</h2>
+          <ul>
+            <li><a href="http://docs/react">React</a>, <a href="http://docs/flux/docs/overview.html">Flux</a> and <a href="http://docs/flummox">Flummox</a></li>
+            <li><a href="http://webpack.docs">Webpack</a></li>
+            <li><a href="http://docs/phoenix">Phoenix</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div class="six columns">
+          
+          <h2>Other useful stuff</h2>
+          <p><a href="/mirror/ruby">Ruby</a>, <a href="/mirror/apple">OS X Command Line Tools</a>, and <a href="/mirror">potentially more things</a> are also available.</p>
+        </div>
+        <div class="six columns">
+        <h4><a href="http://twetter" target="_twetter" style="text-decoration: none; "><img src='http://twetter/images/violated_twitter_brand_guideline.png' alt='to the twetter' style='transform: scaleX(-1); height: 25px; width: 25px;'></a> People are saying...</h4>
+        <ul id="tweets"> 
+        <li>...Loading...</li>
+        </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <div class='section'>
+    <div class='container'>
+      <p>Want to make this prettier? Talk to Matthew Savage (@amasses).</p>
+    </div>
+  </div>
 </body>
 </html>
